@@ -1,0 +1,2 @@
+# Registrationform
+javascript(simple)
