@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Registration Form</title>
+<style>
+body {
+font-family: Calibri, Helvetica, sans-serif;
+background-color: skyblue;
+}
+h1 {
+text-align: center;
+color: #333;
+}
+form {
+border: 3px solid pink;
+background-color: pink;
+width: 500px;
+margin: 0 auto;
+padding: 20px;
+}
+input[type=text], input[type=email], input[type=tel], input[type=password] {
+width: 100%;
+padding: 12px 20px;
+margin: 8px 0;
+display: inline-block;
+border: 1px solid #ccc;
+box-sizing: border-box;
+}
+button {
+background-color: skyblue;
+color: white;
+padding: 14px 20px;
+margin: 8px 0;
+border: none;
+
+
+
+cursor: pointer;
+width: 100%;
+}
+button:hover {
+opacity: 0.8;
+}
+.error {
+color: red;
+}
+</style>
+</head>
+<body>
+<h1>Registration Form</h1>
+<form>
+<label for="fname">First Name</label>
+<input type="text" id="fname" name="fname" placeholder="Enter your first name"
+pattern="[A-Za-z]{2,}" required>
+<span class="error" id="fnameError"></span>
+<label for="lname">Last Name</label>
+<input type="text" id="lname" name="lname" placeholder="Enter your last name"
+pattern="[A-Za-z]{2,}" required>
+<span class="error" id="lnameError"></span>
+<label for="email">Email</label>
+<input type="email" id="email" name="email" placeholder="Enter your email address"
+pattern="/^[^\s@]+@[^\s@]+\.[^\s@]+$/" required>
+<label for="mobile">Mobile</label>
+<input type="tel" id="mobile" name="mobile" placeholder="Enter your mobile number"
+pattern="/^[7896]\d{9}$/" required>
+<label for="password">Password</label>
+<input type="password" id="password" name="password" placeholder="Enter your password"
+pattern="^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" required>
+<span class="error" id="passwordError"></span>
+<label for="password2">Confirm Password</label>
+<input type="password" id="password2" name="password2" placeholder="Confirm your
+password" required>
+
+
+<span class="error" id="password2Error"></span>
+<button type="submit">Submit</button>
+</form>
+<script>
+const form = document.querySelector('form');
+const fname = document.querySelector('#fname');
+const lname = document.querySelector('#lname');
+const password = document.querySelector('#password');
+const password2 = document.querySelector('#password2');
+const fnameError = document.querySelector('#fnameError');
+const lnameError = document.querySelector('#lnameError');
+const passwordError = document.querySelector('#passwordError');
+const password2Error = document.querySelector('#password2Error');
+// validate first name and last name
+function validateName(input, error) {
+const nameRegex = /^[A-Za-z]{2,}$/;
+if (input.value.match(nameRegex)) {
+error.textContent = '';
+return true;
+} else {
+error.textContent = 'Please enter a valid name';
+return false;
+}
+}
+function validateEmail(email) {
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+return emailRegex.test(email);
+}
+function validatePassword() {
+const passwordRegex = /^(?=.[A-Z])(?=.\d)(?=.[@$!%#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+if (password.value.match(passwordRegex)) {
+passwordError.textContent = '';
+return true;
+} else {
+passwordError.textContent = 'Please enter a valid password (minimum 8 characters, one capital
+letter, one symbol, and one number)';
+return false;
+}
+}
+
+
+function validateConfirmPassword() {
+if (password.value === password2.value) {
+password2Error.textContent = '';
+return true;
+} else {
+password2Error.textContent = 'Passwords do not match';
+return false;
+}
+}
+form.addEventListener('submit', function(event) {
+event.preventDefault();
+let isValid = true;
+isValid = validateName(fname, fnameError) && isValid;
+isValid = validateName(lname, lnameError) && isValid;
+isValid = validatePassword() && isValid;
+isValid = validateConfirmPassword() && isValid;
+if (isValid) {
+alert('Registration successful!');
+form.reset();
+}
+});
+</script>
+</body>
+</html>
